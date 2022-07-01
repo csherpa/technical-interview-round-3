@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
 import { apiData } from '../../api';
+import SingleCard from '../SingleCard';
 
 const Cards = () => {
   const [cardInfo, setCardInfo] = useState([]);
@@ -8,7 +9,7 @@ const Cards = () => {
   const getCardInfo = () => {
     apiData()
       .then((data) => setCardInfo(data))
-      .catch((err) => console.log(err, 'getcardInfo Err'));
+      .catch((err) => console.log(err, 'getCardInfo Err'));
   }
   useEffect(() => {
     getCardInfo();
@@ -19,8 +20,12 @@ const Cards = () => {
       <h1>Card</h1>
       <div>
         {
-          cardInfo.map((val) => {
-            console.log(val, 'val');
+          cardInfo.map((info, i) => {
+            return (
+              <div key={i}>
+                <SingleCard info={info}/>
+              </div>
+            )
           })
         }
       </div>
