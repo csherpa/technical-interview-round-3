@@ -18,3 +18,9 @@ test('renders program name', () => {
   const programName = screen.getByText(/Program Name/i);
   expect(programName).toBeInTheDocument();
 })
+
+test('renders institution  name', () => {
+  render(<App />);
+  const institutionName = screen.getByText(/Institution Name/i);
+  expect(institutionName).toBeInTheDocument();
+})
