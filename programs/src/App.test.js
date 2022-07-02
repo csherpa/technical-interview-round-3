@@ -17,10 +17,24 @@ test('renders program name', () => {
   render(<App />);
   const programName = screen.getByText(/Program Name/i);
   expect(programName).toBeInTheDocument();
-})
+});
 
-test('renders institution  name', () => {
+test('renders institution name', () => {
   render(<App />);
   const institutionName = screen.getByText(/Institution Name/i);
   expect(institutionName).toBeInTheDocument();
-})
+});
+
+test('renders program type', () => {
+  render(<App />);
+  const programType = screen.getByText(/Program Type/i);
+  expect(programType).toBeInTheDocument();
+});
+
+test('renders program image', () => {
+  render(<App />);
+  const programImage = screen.getByRole('img');
+  expect(screen.getByTestId('background')).toHaveStyle(`image: url(${programImage.image})`)
+
+});
+
