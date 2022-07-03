@@ -1,5 +1,5 @@
 import Banner from './components/Banner';
-import Cards from './components/Cards';
+import Cards from './components/Cards/Cards';
 import './App.css';
 
 function App() {

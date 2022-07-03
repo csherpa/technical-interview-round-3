@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import Cards from './components/Cards';
+import Cards from './components/Cards/Cards';
 jest.mock('./api', () => ({
   apiData: () => Promise.resolve([{
     name: 'Leah\'s Test Program 12',

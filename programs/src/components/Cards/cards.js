@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
 import { apiData } from '../../api';
-import SingleCard from '../SingleCard';
+import SingleCard from '../SingleCard/SingleCard';
 
 const Cards = () => {
   const [cardInfo, setCardInfo] = useState([]);
