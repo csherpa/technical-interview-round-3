@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 import Cards from './components/Cards/Cards';
+import userEvent from '@testing-library/user-event';
+
 jest.mock('./api', () => ({
   apiData: () => Promise.resolve([{
     name: 'Leah\'s Test Program 12',
@@ -40,4 +42,10 @@ test('renders cards info', async () => {
   expect(programImage).toBeInTheDocument();
 });
 
+test('load more button is clicked', () => {
+  render(<Cards/>);
+  const loadButton  = screen.getByRole('button',{name: 'Load More'});
+  userEvent.click(loadButton);
+  expect(loadButton).toHaveBeenCalled();
 
+});

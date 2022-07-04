@@ -30,6 +30,9 @@ const Cards = () => {
             )
           })
         }
+        <div>
+          <button>Load More</button>
+        </div>
       </div>
     </div>
   );
