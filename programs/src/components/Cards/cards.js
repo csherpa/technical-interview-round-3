@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import './styles.css';
 import { apiData } from '../../api';
 import SingleCard from '../SingleCard/SingleCard';
 
 const Cards = () => {
   const [cardInfo, setCardInfo] = useState([]);
+  // useEffect(() => {
+  //   apiData(pgnym)
+  //     .then((data) => setCardInfo((prevData) => prevData.concat(data)))
+  //     .catch((err) => console.log(err, 'getCardInfo Err'));
+  // }, [pgnym]);
 
-  const getCardInfo = () => {
-    apiData()
-      .then((data) => setCardInfo(data))
-      .catch((err) => console.log(err, 'getCardInfo Err'));
-  }
   useEffect(() => {
-    getCardInfo();
-  }, [])
+    apiData()
+      .then((data) => setCardInfo((prevData) => prevData.concat(data)))
+      .catch((err) => console.log(err, 'getCardInfo Err'));
+  }, []);
 
   return(
     <div>
