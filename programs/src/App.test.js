@@ -1,51 +1,75 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import * as API from './api';
 import App from './App';
 import Cards from './components/Cards/Cards';
 import userEvent from '@testing-library/user-event';
 
-jest.mock('./api', () => ({
-  apiData: () => Promise.resolve([{
-    name: 'Leah\'s Test Program 12',
-    institution: {
-      _id: '62672b7d526b3f5031892c62',
-      name: 'Leah\'s Test Provider',
-      id: '62672b7d526b3f5031892c62'
-    },
-    image: {
-      cloudinaryURL: 'https://res.cloudinary.com/wherewego/image/upload/v1650576618/staging-wherewego/pfiggswe2idy3axq5cu3.jpg',
-        },
-    programType: 'Apprenticeship'
-  }])
-}));
+const mockData = [{
+  name: 'Leah\'s Test Program 12',
+  institution: {
+    _id: '62672b7d526b3f5031892c62',
+    name: 'Leah\'s Test Provider',
+    id: '62672b7d526b3f5031892c62'
+  },
+  image: {
+    cloudinaryURL: 'https://res.cloudinary.com/wherewego/image/upload/v1650576618/staging-wherewego/pfiggswe2idy3axq5cu3.jpg',
+      },
+  programType: 'Apprenticeship'
+},
+...Array(11).fill({
+  name: 'test',
+  institution: {
+    _id: 'test',
+    name: 'test',
+    id: 'test'
+  },
+  image: {
+    cloudinaryURL: 'https://res.cloudinary.com/wherewego/image/upload/v1650576618/staging-wherewego/pfiggswe2idy3axq5cu3.jpg',
+      },
+  programType: 'test'
+})];
 
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+describe('Cards', () => {
+  let apiDataMock;
 
-test('renders learn more link', async () => {
-  render(<App />);
-  const linkElement = await screen.findByText(/learn more/i);
-  expect(linkElement).toBeInTheDocument();
-});
+  beforeEach(() => {
+    apiDataMock = jest.spyOn(API, 'apiData').mockResolvedValue(mockData);
+  });
 
-test('renders cards info', async () => {
-  render(<Cards />);
-  const programName = await screen.findByText(/Program Name: Leah's Test Program 12/i);
-  const institutionName = screen.getByText(/Institution Name: Leah's Test Provider/i);
-  const programType = screen.getByText(/Program Type: Apprenticeship/i);
-  const programImage = screen.getByAltText(/Program Img/i);
-  expect(programName).toBeInTheDocument();
-  expect(institutionName).toBeInTheDocument();
-  expect(programType).toBeInTheDocument();
-  expect(programImage).toBeInTheDocument();
-});
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
-test('load more button is clicked', () => {
-  render(<Cards/>);
-  const loadButton  = screen.getByRole('button',{name: 'Load More'});
-  userEvent.click(loadButton);
-  expect(loadButton).toHaveBeenCalled();
-
+  // test('renders learn react link', () => {
+  //   render(<App />);
+  //   const linkElement = screen.getByText(/learn react/i);
+  //   expect(linkElement).toBeInTheDocument();
+  // });
+  
+  test('renders learn more link', async () => {
+    render(<App />);
+    const linkElement = await screen.findByText(/learn more/i);
+    expect(linkElement).toBeInTheDocument();
+  });
+  
+  test('renders cards info', async () => {
+    render(<Cards />);
+    const programName = await screen.findByText(/Program Name: Leah's Test Program 12/i);
+    const institutionName = screen.getByText(/Institution Name: Leah's Test Provider/i);
+    const programType = screen.getByText(/Program Type: Apprenticeship/i);
+    const programImage = screen.getAllByAltText(/Program Img/i);
+    expect(programName).toBeInTheDocument();
+    expect(institutionName).toBeInTheDocument();
+    expect(programType).toBeInTheDocument();
+    expect(programImage).toHaveLength(12);
+  });
+  
+  test('load more button is clicked', async() => {
+    render(<Cards/>);
+    // const loadButton  =  screen.findByRole('button',{name: 'Load More'});
+    userEvent.click(await screen.findByRole('button',{name: 'Load More'}));
+    await waitFor(() => {
+      expect(apiDataMock).toHaveBeenCalled();
+    })
+  });
 });

@@ -1,28 +1,33 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import './styles.css';
 import { apiData } from '../../api';
 import SingleCard from '../SingleCard/SingleCard';
+import { initialState, reducer } from '../../trainingProgramReducer';
 
 const Cards = () => {
-  const [cardInfo, setCardInfo] = useState([]);
-  // useEffect(() => {
-  //   apiData(pgnym)
-  //     .then((data) => setCardInfo((prevData) => prevData.concat(data)))
-  //     .catch((err) => console.log(err, 'getCardInfo Err'));
-  // }, [pgnym]);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  let prevPageNumber = useRef(0);
 
   useEffect(() => {
-    apiData()
-      .then((data) => setCardInfo((prevData) => prevData.concat(data)))
-      .catch((err) => console.log(err, 'getCardInfo Err'));
-  }, []);
+    if(prevPageNumber.current !== state.pageNumber) {
+      prevPageNumber.current = state.pageNumber;
+      apiData(state.pageNumber)
+        .then((data) => {
+          dispatch({
+            type: 'loadMore',
+            data: data
+          })
+        })
+        .catch((err) => console.log(err, 'getCardInfo Err'));
+    }
+  }, [state.pageNumber]);
 
   return(
     <div>
       <h1>Card</h1>
       <div>
         {
-          cardInfo.map((info, i) => {
+          state.cardInfo.map((info, i) => {
             return (
               <div key={i}>
                 <SingleCard info={info}/>
@@ -31,7 +36,7 @@ const Cards = () => {
           })
         }
         <div>
-          <button>Load More</button>
+          {state.loadMore && <button onClick={() => dispatch({type: 'updatePage'})}>Load More</button>}
         </div>
       </div>
     </div>
