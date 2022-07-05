@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useRef } from 'react';
 import './styles.css';
 import { apiData } from '../../api';
 import SingleCard from '../SingleCard/SingleCard';
-import { initialState, reducer } from '../../trainingProgramReducer';
+import { initialState, reducer } from './trainingProgramReducer';
 
 const Cards = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
