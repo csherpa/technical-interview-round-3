@@ -1,6 +1,6 @@
 import './styles.css';
 
-function Banner() { 
+function Banner() {
   return (
     <div className="Banner">
         <h1>Explore Careers</h1>
