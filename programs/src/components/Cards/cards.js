@@ -9,6 +9,7 @@ const Cards = () => {
   let prevPageNumber = useRef(0);
 
   useEffect(() => {
+    // prevPageNumber necessary due to strict mode in development
     if(prevPageNumber.current !== state.pageNumber) {
       prevPageNumber.current = state.pageNumber;
       apiData(state.pageNumber)
@@ -24,8 +25,7 @@ const Cards = () => {
 
   return(
     <div>
-      <h1>Card</h1>
-      <div>
+      <div className ="cardInfo">
         {
           state.cardInfo.map((info, i) => {
             return (
@@ -35,8 +35,8 @@ const Cards = () => {
             )
           })
         }
-        <div>
-          {state.loadMore && <button onClick={() => dispatch({type: 'updatePage'})}>Load More</button>}
+        <div id='cardButton'>
+          {state.loadMore && <button className='button' onClick={() => dispatch({type: 'updatePage'})}>Load More</button>}
         </div>
       </div>
     </div>

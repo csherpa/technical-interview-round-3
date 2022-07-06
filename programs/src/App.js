@@ -12,7 +12,7 @@ function App() {
             alt="WhereWeGo logl"
           />
           <nav>
-            <a target="_blank" rel="noreferrer" href="https://wherewego.org">
+            <a className='linkTag' target="_blank" rel="noreferrer" href="https://wherewego.org">
               Learn more
             </a>
           </nav>
