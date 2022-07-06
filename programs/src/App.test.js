@@ -3,6 +3,7 @@ import * as API from './api';
 import App from './App';
 import Cards from './components/Cards/Cards';
 import userEvent from '@testing-library/user-event';
+import { reducer } from './components/Cards/trainingProgramReducer';
 
 const mockData = [{
   name: 'Leah\'s Test Program 12',
@@ -72,4 +73,13 @@ describe('Cards', () => {
       expect(apiDataMock).toHaveBeenCalled();
     })
   });
+
+  test('should update the pageNumber', async() => {
+    const initialState = {pageNumber: 1};
+    const updateAction = {type: 'updatePage'}
+    const updatedState = reducer(initialState, updateAction);
+    await waitFor(() => {
+      expect(updatedState).toEqual({pageNumber: 2});
+    })
+  })
 });
