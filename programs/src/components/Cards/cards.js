@@ -27,8 +27,8 @@ const Cards = () => {
     <div>
       <div className ="cardInfo">
         {
-          state.cardInfo.map((info, i) =>
-            <SingleCard info={info}/>
+          state.cardInfo.map((info) =>
+            <SingleCard info={info} key={info._id}/>
           )
         }
       </div>
