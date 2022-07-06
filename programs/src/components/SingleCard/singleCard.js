@@ -4,8 +4,8 @@ import './styles.css';
 const SingleCard = ({ info }) => {
   // console.log(info, 'SingleCardInfo')
   return (
-    <div>
-      <div className="card">
+    <div className="cards-content">
+      <div className="cards">
         <img src={info.image.cloudinaryURL} alt="Program Img"  data-testid="background" style={{width: '100%'} }/>
         <div className="container">
           <h4>Program Name: {info.name}</h4>

@@ -27,17 +27,13 @@ const Cards = () => {
     <div>
       <div className ="cardInfo">
         {
-          state.cardInfo.map((info, i) => {
-            return (
-              <div key={i}>
-                <SingleCard info={info}/>
-              </div>
-            )
-          })
+          state.cardInfo.map((info, i) =>
+            <SingleCard info={info}/>
+          )
         }
-        <div id='cardButton'>
-          {state.loadMore && <button className='button' onClick={() => dispatch({type: 'updatePage'})}>Load More</button>}
-        </div>
+      </div>
+      <div id='cardButton'>
+        {state.loadMore && <button className='button' onClick={() => dispatch({type: 'updatePage'})}>Load More</button>}
       </div>
     </div>
   );
