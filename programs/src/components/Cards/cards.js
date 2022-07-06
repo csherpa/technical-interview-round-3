@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import './styles.css';
+import './Cards.css';
 import { apiData } from '../../api';
 import SingleCard from '../SingleCard/SingleCard';
 import { initialState, reducer } from './trainingProgramReducer';
