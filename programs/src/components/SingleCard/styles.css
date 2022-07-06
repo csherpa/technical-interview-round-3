@@ -4,13 +4,11 @@
     transition: 0.3s;
     width: 75%;
     border-radius: 5px;
-    margin-top: 50px;
-    margin-left: 65px;
+    margin: 50px 0px 50px 65px;
   }
   .container {
     padding: 2px 16px;
   }
-  
   img {
     border-radius: 5px 5px 0 0;
   }
